@@ -1,16 +1,19 @@
-# Alpine-Java-Minecraft Server!
+# alpine-minecraftsvr
 
 Thanks to the Alpine-Java image out on Dockerhub: [https://hub.docker.com/r/thetallgrassnet/alpine-java/ thetallgrassnet/alpine-java]
 
-I have been able to produce a Minecraft Docker image that spawns a new world upon startup, or loads a world that you provide (to include any *.json provided configuration, etc.)  How does this work with Docker?
+I have been able to produce a Minecraft Docker image that spawns a new world upon startup or loads a world that you provide (FUTURE - In progress - to include any json-provided configuration, etc.)  How does this work with Docker?
 
-Consider the target deployment environment, DigitalOcean / Docker App on CoreOS:
+Docker Image of Minecraft, names  - labelled for version expression
+* For example, initial image is Minecraft Server 1.11.2
+* Image contains no world or player data
+* Image is 146 MB in size - OS and All thanks to Busybox / Alpine!
+* Image deploys in seconds
 
-1. Docker Image of Minecraft - labelled for version expression
-..* For example, initial image is Minecraft Server 1.11.2
-..* Image contains no world or player data
-..* Image is 146 MB in size - OS and All!
-..* Image deploys in seconds
+
+
+# Target Hosting Deployment
+DigitalOcean / Docker App on CoreOS:
 
 # World Deployment
 Docker-minecraft deploys without a pre-built world, allowing developers to specify their own world and tell the docker container at startup where to mount in the desired world and configurations.  The trouble in the target deployment environement is that we cannot readily SSH or SCP to the host.  We have to consider a different way to get the world data accessible by our Docker container running at DigitalOcean.
