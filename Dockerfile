@@ -2,18 +2,22 @@
 # DockerFile
 # Name:        alpine-minecraftsvr
 # Description: Minecraft Dockerfile starting from Alpine Java
+# Location:    https://github.com/diamondsfordays/alpine-minecraftsvr
 # Author:      falenn
 # Created:     28Jan2017
-
+#
+# Starting from the smallest OS possible, plus help from anaspix's java inclusion
 # For information on minecraft server, see https://minecraft.net/en-us/download/server
+#---------------------------------------------
 
+#-- Usage Guide ----------------
 # Docker build command:
-# docker build --rm --no-cache -t "falenn/alpine-minecraftsvr:1.11.2" .
+# docker build --rm --no-cache -t "diamondsfordays/alpine-minecraftsvr:1.11.2" .
 
 # Docker run command:
-# docker run --rm -it -p 25565:25565 -l minecraft falenn/alpine-minecraftsvr:1.11.2
-# docker run --rm -p 25565:25565 -it -l minecraft --entrypoint="/bin/bash" falenn/alpine-minecraftsvr:1.11.2
-# docker run --rm -p 25565:25565 -l minecraft -v ~/dev/git/minecraftsvr/data:/mcsdata falenn/alpine-minecraftsvr:1.11.2
+# docker run --rm -it -p 25565:25565 -l minecraft diamondsfordays/alpine-minecraftsvr:1.11.2
+# docker run --rm -p 25565:25565 -it -l minecraft --entrypoint="/bin/bash" diamondsfordays/alpine-minecraftsvr:1.11.2
+# docker run --rm -p 25565:25565 -l minecraft -v ~/dev/git/minecraftsvr/data:/mcsdata diamondsfordays/alpine-minecraftsvr:1.11.2
 
 # Docker remove images
 # docker rmi $(docker images -f dangling=true -q)
@@ -24,11 +28,14 @@
 # Docker remove all containers
 # docker ps -a | awk '{print $1}' | xargs docker rm
 
-# Starting from the smallest OS possible, plus help from anaspix
-# java inclusion
+
 FROM anapsix/alpine-java:8
 
-LABEL minecraft_server.version=1.11.2
+LABEL org.diamondsfordays.alpine-minecraftsvr.verison="1.11.2" \
+      org.diamondsfordays.alpine-minecraftsvr.image-specs="{ \
+      \"Description\":\"Alpine-java container running minecraft server\", \
+      \"java-version\":\"8\" \
+      }"
 
 MAINTAINER falenn
 
@@ -46,7 +53,7 @@ MAINTAINER falenn
 # loosing data.
 #
 # We will therefor do the following:
-# 1. NOT store the mincraft world IN the container.  Will need to
+# 1. NOT store the Minecraft world IN the container.  Will need to
 #    mount a volume for that
 # 2. Will mount in server configurations so we do not share configs
 #    with the world.  We can start up with a default if there isn't

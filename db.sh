@@ -3,7 +3,7 @@
 # Build and automate cleanup - good to use on a dev box where this is the
 # only project you are workingo on.
 
-REPO_AND_IMAGE='falenn/alpine-minecraftsvr:1.11.2'
+REPO_AND_IMAGE='diamondsfordays/alpine-minecraftsvr:1.11.2'
 CONTAINER_NAME='minecraft'
 
 # remove built image for rebuild
