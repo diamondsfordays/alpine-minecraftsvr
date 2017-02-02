@@ -1,0 +1,6 @@
+# Example Data Host Volume Mount #
+data/*
+
+
+# DigitalOcean Provisioning #
+do-provision.sh
