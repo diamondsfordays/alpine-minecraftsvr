@@ -77,7 +77,6 @@ RUN apk add --update ca-certificates openssl bash sudo \
 # Install minecraft server
 RUN mkdir -p $MINECRAFT_DIR/tmp \
     && wget -P $MINECRAFT_DIR https://s3.amazonaws.com/Minecraft.Download/versions/$MCS_VERSION/minecraft_server.$MCS_VERSION.jar \
-    && rm -f $MINECRAFT_DIR/minecraft_server.jar \
     && ln -s $MINECRAFT_DIR/minecraft_server.$MCS_VERSION.jar $MINECRAFT_DIR/mcs.jar \
     && adduser -s /bin/bash -D -h $MINECRAFT_DIR minecraft
 

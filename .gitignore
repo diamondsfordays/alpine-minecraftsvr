@@ -1,6 +1,12 @@
 # Example Data Host Volume Mount #
 data/*
 
+# ignore any python cache
+*.pyc
 
 # DigitalOcean Provisioning #
 do-provision.sh
+
+# don't allow checkin of private config
+config.yml
+diamondsfordays.json
