@@ -51,16 +51,28 @@ if [ -d "$DATA_DIR" ]; then
     if [ ! -e "$MINECRAFT_DIR/$ff" ]; then
       echo "Linking file $ff"
       ln -s $f $MINECRAFT_DIR/$ff
+    else
+      echo "Removing existing file and linking matching file $f"
+      rm -f $MINECRAFT_DIR/$f
+      ln -s $f $MINECRAFT_DIR/$ff
     fi
   done
   # link directories
   for D in `find $DATA_DIR/ -type d`
   do
-    DD=$(basename $D)
-    echo "Directory $D found in $DATA_DIR"
-    if [ ! -e "$MINECRAFT_DIR/$DD" ]; then
-      echo "Linking dir $DD"
-      ln -s $D $MINECRAFT_DIR/$DD
+    if [ "$D" != "$DATA_DIR" ]; then
+      DD=$(basename $D)
+      echo "Directory $D found in $DATA_DIR"
+      if [ ! -e "$MINECRAFT_DIR/$DD" ]; then
+        echo "Linking dir $DD"
+        ln -s $D $MINECRAFT_DIR/$DD
+      else
+        echo "Removing existing directory and linking matching dir $D"
+        rm -f $MINECRAFT_DIR/$D
+        ln -s $D $MINECRAFT_DIR/$DD
+      fi
+    else
+      echo "Not linking the data dir.  Too recursive."
     fi
   done
 fi
@@ -78,7 +90,7 @@ fi
 
 # -XX\:+UseConcMarkSweepGC, -XX\:+UseParNewGC, -XX\:+DisableExplicitGC, -XX\:MaxGCPauseMillis\=250, -XX\:PermSize\=256M, -XX\:MaxPermSize\=256M
 
-  
+
 #starting minescraft
 cd /$MINECRAFT_DIR
 java -Xmx$XMX_MEM \
