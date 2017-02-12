@@ -34,7 +34,7 @@ done
 echo "Xmx = ${M}"
 echo "Xms = ${m}"
 echo "minecraft home dir = ${MINECRAFT_DIR}"
-echo "minecraft external config directory = ${EXT_CONFIG_DIR}"
+echo "minecraft external data directory = ${DATA_DIR}"
 # exit on error
 set -e
 
@@ -42,49 +42,16 @@ set -e
 printenv
 
 # Link in any external dependent config files or world directories
-if [ -d "$DATA_DIR" ]; then
-  # Link files
-  for f in $DATA_DIR/*
-  do
-    ff=$(basename $f)
-    echo "File $f found in $DATA_DIR"
-    if [ ! -e "$MINECRAFT_DIR/$ff" ]; then
-      echo "Linking file $ff"
-      ln -s $f $MINECRAFT_DIR/$ff
-    else
-      echo "Removing existing file and linking matching file $f"
-      rm -f $MINECRAFT_DIR/$f
-      ln -s $f $MINECRAFT_DIR/$ff
-    fi
-  done
-  # link directories
-  for D in `find $DATA_DIR/ -type d`
-  do
-    if [ "$D" != "$DATA_DIR" ]; then
-      DD=$(basename $D)
-      echo "Directory $D found in $DATA_DIR"
-      if [ ! -e "$MINECRAFT_DIR/$DD" ]; then
-        echo "Linking dir $DD"
-        ln -s $D $MINECRAFT_DIR/$DD
-      else
-        echo "Removing existing directory and linking matching dir $D"
-        rm -f $MINECRAFT_DIR/$D
-        ln -s $D $MINECRAFT_DIR/$DD
-      fi
-    else
-      echo "Not linking the data dir.  Too recursive."
-    fi
-  done
-fi
+
 
 # start with default/initial server.properties if one is not provided
-if [ ! -e "$MINECRAFT_DIR/server.properties" ]; then
-  cp $MINECRAFT_DIR/tmp/server.properties $MINECRAFT_DIR
+if [ ! -e "$DATA_DIR/server.properties" ]; then
+  cp $MINECRAFT_DIR/tmp/server.properties $DATA_DIR
 fi
 
 # copy over eula.txt as startup requirement
-if [ ! -e "$MINECRAFT_DIR/eula.txt" ]; then
-  cp $MINECRAFT_DIR/tmp/eula.txt $MINECRAFT_DIR
+if [ ! -e "$DATA_DIR/eula.txt" ]; then
+  cp $MINECRAFT_DIR/tmp/eula.txt $DATA_DIR
 fi
 
 
@@ -92,7 +59,7 @@ fi
 
 
 #starting minescraft
-cd /$MINECRAFT_DIR
+cd /$DATA_DIR
 java -Xmx$XMX_MEM \
      -Xms$XMS_MEM \
      -jar $MINECRAFT_DIR/mcs.jar nogui
