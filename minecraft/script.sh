@@ -62,5 +62,5 @@ fi
 cd /$DATA_DIR
 java -Xmx$XMX_MEM \
      -Xms$XMS_MEM \
-     -jar $MINECRAFT_DIR/mcs.jar nogui
+     -jar $MINECRAFT_DIR/mcs.jar nogui &
 # nohup

@@ -78,7 +78,9 @@ RUN apk add --update ca-certificates openssl bash sudo \
 RUN mkdir -p $MINECRAFT_DIR/tmp \
     && wget -P $MINECRAFT_DIR https://s3.amazonaws.com/Minecraft.Download/versions/$MCS_VERSION/minecraft_server.$MCS_VERSION.jar \
     && ln -s $MINECRAFT_DIR/minecraft_server.$MCS_VERSION.jar $MINECRAFT_DIR/mcs.jar \
-    && adduser -s /bin/bash -D -h $MINECRAFT_DIR minecraft
+    && adduser -s /bin/bash -D -h $MINECRAFT_DIR minecraft \
+    && mkdir -p $DATA_DIR/logs \
+    && chown -R minecraft: $DATA_DIR
 
 # Copy over essential config files to config dir
 COPY minecraft/config $MINECRAFT_DIR/tmp/
