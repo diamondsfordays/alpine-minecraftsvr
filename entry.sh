@@ -16,4 +16,21 @@ sudo MINECRAFT_DIR=$MINECRAFT_DIR \
 # the tail from this file
 # This also keeps the container running!  Help - there's probably a more
 # sane way to accomplish this.
-tail -f $DATA_DIR/logs/latest.log
+if [ ! -f "$DATA_DIR/logs/latest.log" ]
+then
+  touch $DATA_DIR/logs/latest.log
+fi
+tail -f $DATA_DIR/logs/latest.log &
+while :
+do
+  pid=`pgrep -o -x java`
+  if [ $? -eq 1 ];
+  then
+    # java process has stopped running!
+    pkill tail
+    exit 1
+  else
+    # echo "Minecraft still running: $pid"
+    sleep 10
+  fi
+done
