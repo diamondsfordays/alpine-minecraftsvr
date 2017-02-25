@@ -8,9 +8,9 @@ CONTAINER_NAME='minecraft'
 
 # remove built image for rebuild
 #docker rmi $(docker images | grep -v $REPO_AND_IMAGE | awk {'print $3'})
-docker rmi $(docker images | awk {'print $3'})
+# docker rmi $(docker images | awk {'print $3'})
 # remove any images that are left around
-docker rmi $(docker images -f dangling=true -q)
+# docker rmi $(docker images -f dangling=true -q)
 
 # remove any existing stopped containers
 docker ps -a | awk '{print $1}' | xargs docker rm
@@ -38,5 +38,9 @@ docker run \
 # attach to the new container
 #docker attach -it minecraft
 
+# for docker-machine, ensure port is available to host
+# This is really only for development when using docker machine
+VBoxManage controlvm "default" natpf1 "tcp-port25565,tcp,,25565,,25565";
+
 # follow stdout
-#docker logs -f $CONTAINER_NAME
+docker logs -f $CONTAINER_NAME
