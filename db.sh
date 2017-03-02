@@ -29,7 +29,7 @@ docker run \
       --name $CONTAINER_NAME \
       -d \
       -p 25565:25565 \
-      -v ~/dev/git/minecraftsvr/data:/mcsdata \
+      -v ./data:/mcsdata \
       -l $CONTAINER_NAME \
       $REPO_AND_IMAGE
       # -it for interactive mode
