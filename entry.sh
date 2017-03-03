@@ -12,6 +12,7 @@ sudo MINECRAFT_DIR=$MINECRAFT_DIR \
      su -c '/minecraft/script.sh' \
      minecraft
 
+sleep 10
 # pipes log to stdout.  If you run docker logs -f minecraft, you will see
 # the tail from this file
 # This also keeps the container running!  Help - there's probably a more
@@ -20,7 +21,7 @@ if [ ! -f "$DATA_DIR/logs/latest.log" ]
 then
   touch $DATA_DIR/logs/latest.log
 fi
-tail -f $DATA_DIR/logs/latest.log &
+# tail -f $DATA_DIR/logs/latest.log &
 while :
 do
   pid=`pgrep -o -x java`

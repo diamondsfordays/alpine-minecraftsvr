@@ -13,7 +13,8 @@ CONTAINER_NAME='minecraft'
 # docker rmi $(docker images -f dangling=true -q)
 
 # remove any existing stopped containers
-docker ps -a | awk '{print $1}' | xargs docker rm
+#docker ps -a | awk '{print $1}' | xargs docker rm
+docker ps -a | awk '{ print $1,$2 }' | grep $REPO_AND_IMAGE | awk '{print $1 }' | xargs -I {} docker rm -f {}
 
 # build the image, removing intermediate layers, deleting cache
 # docker build --rm --no-cache -t "$REPO_AND_IMAGE" .
@@ -29,7 +30,7 @@ docker run \
       --name $CONTAINER_NAME \
       -d \
       -p 25565:25565 \
-      -v data:/mcsdata \
+      -v ~/dev/git/minecraftsvr/data:/mcsdata \
       -l $CONTAINER_NAME \
       $REPO_AND_IMAGE
       # -it for interactive mode
