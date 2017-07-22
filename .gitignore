@@ -6,6 +6,7 @@ data/*
 
 # DigitalOcean Provisioning #
 do-provision.sh
+minecraft/backup.sh
 
 # don't allow checkin of private config
 config.yml

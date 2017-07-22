@@ -60,8 +60,8 @@ MAINTAINER falenn
 #    one provided at startup.
 
 # set environment variables
-ENV MCS_MAJOR=1.11 \
-    MCS_VERSION=1.11.2 \
+ENV MCS_MAJOR=1.12 \
+    MCS_VERSION=1.12 \
     MINECRAFT_DIR="/minecraft" \
     XMX_MEM=1024M \
     XMS_MEM=1024M \
